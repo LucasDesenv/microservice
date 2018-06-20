@@ -39,4 +39,9 @@ public class Person {
     public boolean isAuthorized() {
         return authorized;
     }
+
+    public void preValidate() {
+        this.authorized = false;
+        this.id = null;
+    }
 }

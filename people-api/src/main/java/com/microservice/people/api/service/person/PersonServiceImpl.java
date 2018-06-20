@@ -15,16 +15,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(String id) {
-        return personRepository.findById(id);
+        return personRepository.findById(id).orElse(null);
     }
 
     @Override
     public Person save(Person person) {
+        person.preValidate();
         return personRepository.save(person);
     }
 
     @Override
     public void delete(String id) {
-        personRepository.delete(id);
+        Person perosnToDelete = findById(id);
+        personRepository.delete(perosnToDelete);
     }
 }
