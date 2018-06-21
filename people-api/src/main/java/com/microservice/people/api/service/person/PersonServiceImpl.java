@@ -30,14 +30,21 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person save(Person person) {
         person.preValidate();
-        Person personSaved = personRepository.save(person);
+        Person personSaved = personRepository.insert(person);
         personCacheService.save(personSaved);
         return personSaved;
     }
 
     @Override
     public void delete(String id) {
-        Person perosnToDelete = findById(id);
-        personRepository.delete(perosnToDelete);
+        Person personToDelete = findById(id);
+        personRepository.delete(personToDelete);
+    }
+
+    @Override
+    public void authorize(String id) {
+        Person person = findById(id);
+        person.authorize();
+        personRepository.save(person);
     }
 }

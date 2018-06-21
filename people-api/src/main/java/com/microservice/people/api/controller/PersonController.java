@@ -1,7 +1,7 @@
 package com.microservice.people.api.controller;
 
 import com.microservice.people.api.domain.person.Person;
-import com.microservice.people.api.queue.PersonAuthorizationProducer;
+import com.microservice.people.api.queue.person.PersonProducer;
 import com.microservice.people.api.service.person.PersonService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
     @Autowired
-    private PersonAuthorizationProducer personAuthorizationProducer;
+    private PersonProducer personProducer;
 
     @GetMapping("/{id}")
     public Person get(@PathVariable String id){
@@ -43,7 +43,7 @@ public class PersonController {
 
     @PostMapping("/{id}")
     public ResponseEntity<String> requestAuthorization(@PathVariable String id){
-        personAuthorizationProducer.send(id);
+        personProducer.postForAuthorization(id);
         return ResponseEntity.accepted().body("Under review.");
     }
 }

@@ -46,4 +46,8 @@ public class Person implements Serializable{
         this.authorized = false;
         this.id = null;
     }
+
+    public void authorize() {
+        this.authorized = true;
+    }
 }

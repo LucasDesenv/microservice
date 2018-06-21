@@ -17,6 +17,6 @@ app:
 
 logging:
   level:
-    root: WARN
+    root: WARN, INFO, ERROR
     org.springframework.web: INFO
 #    com.memorynotfound: DEBUG
