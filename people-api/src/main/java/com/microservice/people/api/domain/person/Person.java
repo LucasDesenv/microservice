@@ -3,11 +3,13 @@ package com.microservice.people.api.domain.person;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 /**
  * Created by lusouza on 18/06/18.
  */
 @Document(collection = "person")
-public class Person {
+public class Person implements Serializable{
     @Id
     private String id;
     private String name;

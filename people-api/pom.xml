@@ -22,12 +22,19 @@
   </properties>
 
   <dependencies>
+
+    <!--Hystrix-->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-hystrix</artifactId>
+      <version>1.4.4.RELEASE</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-properties-migrator</artifactId>
       <scope>runtime</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -89,6 +96,17 @@
       <artifactId>spring-kafka</artifactId>
       <!--<version>2.1.7.RELEASE</version>-->
       <!--<version>1.2.2.RELEASE</version>-->
+    </dependency>
+
+    <!--Redis-->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
     </dependency>
 
   </dependencies>
