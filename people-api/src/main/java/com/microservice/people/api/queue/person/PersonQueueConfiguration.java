@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class PersonQueueConfiguration {
-    static final String QUEUE_AUTHORIZE = "authorize";
-    static final String QUEUE_PEOPLE_READ = "read";
-    static final String EXCHANGER = "person_events";
+    public static final String QUEUE_AUTHORIZE = "authorize";
+    public static final String QUEUE_CACHE = "cache";
+    public static final String EXCHANGER = "person_events";
 
     @Bean
     Queue authorize(){
@@ -23,8 +23,8 @@ public class PersonQueueConfiguration {
     }
 
     @Bean
-    Queue read(){
-        return new Queue(QUEUE_PEOPLE_READ, false);
+    Queue cache(){
+        return new Queue(QUEUE_CACHE, true);
     }
 
     @Bean
@@ -38,7 +38,7 @@ public class PersonQueueConfiguration {
     }
 
     @Bean
-    Binding bindingPeopleRead(@Qualifier("read") Queue queue, DirectExchange directExchange){
-        return BindingBuilder.bind(queue).to(directExchange).with(QUEUE_PEOPLE_READ);
+    Binding bindingPeopleRead(@Qualifier("cache") Queue queue, DirectExchange directExchange){
+        return BindingBuilder.bind(queue).to(directExchange).with(QUEUE_CACHE);
     }
 }

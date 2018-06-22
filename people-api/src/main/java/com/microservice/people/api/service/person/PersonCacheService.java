@@ -7,7 +7,7 @@ import com.microservice.people.api.domain.person.Person;
  */
 public interface PersonCacheService {
     Person findById(String id);
-    void save(Person person);
+    void save(String id);
     void delete(String id);
-
+    void update(String id);
 }

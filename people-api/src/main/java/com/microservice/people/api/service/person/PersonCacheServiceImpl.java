@@ -13,12 +13,15 @@ import javax.annotation.PostConstruct;
  */
 @Service
 public class PersonCacheServiceImpl implements PersonCacheService {
-    private RedisTemplate<String, Person> redisTemplate;
-    private HashOperations hashOps;
+    private static final String KEY = "person";
+    private final RedisTemplate<String, Person> redisTemplate;
+    private HashOperations<String, String, Person> hashOps;
+    private final PersonService personService;
 
     @Autowired
-    public PersonCacheServiceImpl(RedisTemplate redisTemplate) {
+    public PersonCacheServiceImpl(RedisTemplate redisTemplate, PersonService personService) {
         this.redisTemplate = redisTemplate;
+        this.personService = personService;
     }
 
     @PostConstruct
@@ -28,16 +31,23 @@ public class PersonCacheServiceImpl implements PersonCacheService {
 
     @Override
     public Person findById(String id) {
-        return (Person) hashOps.get("person", id);
+        return hashOps.get(KEY, id);
     }
 
     @Override
-    public void save(Person person) {
-        hashOps.put("person", person.getId() , person);
+    public void save(String id) {
+        final Person person = personService.findById(id);
+        hashOps.put(KEY, person.getId() , person);
     }
 
     @Override
     public void delete(String id) {
-
+        hashOps.delete(KEY, id);
     }
+
+    @Override
+    public void update(String id) {
+        this.save(id);
+    }
+
 }
